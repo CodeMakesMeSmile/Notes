@@ -17,10 +17,23 @@ namespace Notes
 			InitializeComponent ();
 		}
 
-		async void OnSaveButtonClicked(object sender, EventArgs e) {
+		readonly Note _note;
+        public NotesEntryPage(Note note)
+        {
+            InitializeComponent();
+			Title = "Edit Note";
+			_note = note;
+            noteName.Text = note.taskName;
+			noteDetail.Text = note.taskDescription;
+            noteName.Focus();
+        }
+
+        async void OnSaveButtonClicked(object sender, EventArgs e) {
 			if (string.IsNullOrWhiteSpace(noteName.Text))
 			{
 				await DisplayAlert("Invalid", "Blank Notes are Invalid!", "OK");
+			} else if (_note != null) {
+				EditNote();
 			}
 			else {
 				AddNewNote();
@@ -35,11 +48,15 @@ namespace Notes
         });
             await Navigation.PopAsync();
         }
-		async void OnDeleteButtonClicked(object sender, EventArgs e) {
-			//var note = (Note)BindingContext;
 
-		
-		}
+        async void EditNote()
+        {
+			_note.taskName = noteName.Text;
+            _note.taskDescription = noteDetail.Text;
+			_note.Date= DateTime.Now;
 
+			await App.Database.UpdateNoteAsync(_note);
+			await Navigation.PopAsync();
+        }
     }
 }

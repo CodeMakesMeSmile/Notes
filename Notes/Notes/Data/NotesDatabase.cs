@@ -23,18 +23,23 @@ namespace Notes.Data
         }
 
         public Task<int> SaveNoteAsync(Note note) {
-            if (note.Id != 0)
-            {
-                return db.UpdateAsync(note);
-            }
-            else {
-                return db.InsertAsync(note);
-            }
+            return db.InsertAsync(note); 
         }
 
-        public Task<int> DeleteNote (Note note)
+        public Task<int> UpdateNoteAsync(Note note)
+        {
+            return db.UpdateAsync(note);
+        }
+
+        public Task<int> DeleteNote(Note note)
         {
             return db.DeleteAsync(note);
+        }
+
+
+        public Task<List<Note>> Search(string query)
+        {
+            return db.Table<Note>().Where(p=>p.taskName.StartsWith(query)).ToListAsync();
         }
     }
 }

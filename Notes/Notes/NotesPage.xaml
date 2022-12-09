@@ -14,16 +14,56 @@
                      Clicked = "OnNoteAddedClicked" />
     </ContentPage.ToolbarItems>
 
+    <StackLayout>
+        <SearchBar Placeholder="Search Employee"
+                   TextChanged="SearchBar_TextChange"/>
+        <CollectionView x:Name="myCollectionView"
+                        SelectionMode="Single"
+                        Margin="{StaticResource PageMargin}" >
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Edit"
+                                       BackgroundColor="PeachPuff"
+                                       CommandParameter="{Binding .}"
+                                       Invoked="SwipeItem_Invoked"/>
+                                <SwipeItem Text="Delete"
+                                       BackgroundColor="IndianRed"
+                                       CommandParameter="{Binding .}"
+                                       Invoked="SwipeItem_Invoked_1" />
 
-    <ListView x:Name="ListView"
-              Margin="{StaticResource PageMargin}"
-              ItemSelected="OnListViewItemSelected" >
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <TextCell Text="{Binding taskName}"
-                          TextColor="Black"
-                          Detail="{Binding taskDescription}" />
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Grid RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Id}"
+                                   Grid.Row="0" Grid.RowSpan="2"
+                                   HorizontalOptions="CenterAndExpand"
+                                   VerticalOptions="CenterAndExpand"/>
+                            <Label Text="{Binding taskName}"
+                                   Grid.Row="0" Grid.Column="1"
+                                   VerticalOptions="CenterAndExpand"
+                                   FontSize="20"
+                                   FontAttributes="Bold"/>
+                            <Label Text="{Binding taskDescription}"
+                                   Grid.Row="1" Grid.Column="1"
+                                   FontSize="15"/>
+                            <Label Text="{Binding Date}"
+                                   Grid.Row="2" Grid.Column="1"
+                                   FontSize="10"/>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+                        
+    </StackLayout>
+        
 </ContentPage>
