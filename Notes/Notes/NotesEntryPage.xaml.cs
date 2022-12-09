@@ -16,5 +16,30 @@ namespace Notes
 		{
 			InitializeComponent ();
 		}
-	}
+
+		async void OnSaveButtonClicked(object sender, EventArgs e) {
+			if (string.IsNullOrWhiteSpace(noteName.Text))
+			{
+				await DisplayAlert("Invalid", "Blank Notes are Invalid!", "OK");
+			}
+			else {
+				AddNewNote();
+			}	
+		}
+
+		async void AddNewNote() {
+            await App.Database.SaveNoteAsync(new Note { 
+				taskDescription = noteDetail.Text,
+				taskName= noteName.Text,
+                Date = DateTime.Now
+        });
+            await Navigation.PopAsync();
+        }
+		async void OnDeleteButtonClicked(object sender, EventArgs e) {
+			//var note = (Note)BindingContext;
+
+		
+		}
+
+    }
 }

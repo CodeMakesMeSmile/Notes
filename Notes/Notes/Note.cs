@@ -9,6 +9,7 @@ namespace Notes
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        [MaxLength(50)]
         public string taskName { get; set; }
         public string taskDescription { get; set; }
         public DateTime Date { get; set; }

@@ -27,6 +27,8 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
+            <Color x:Key="AppBackgroundColor">#D4E9F2</Color>
+            <Thickness x:Key="PageMargin">20</Thickness>
         </ResourceDictionary>        
     </Application.Resources>
 </Application>

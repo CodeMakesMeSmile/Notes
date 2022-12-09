@@ -11,6 +11,7 @@ namespace Notes
     public partial class App : Application
     {
         public static NotesDatabase database;
+        public static string FolderPath { get; private set; }
 
         public static NotesDatabase Database
         {
@@ -28,8 +29,8 @@ namespace Notes
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            FolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
+            MainPage = new NavigationPage(new NotesPage());
         }
 
         protected override void OnStart()
